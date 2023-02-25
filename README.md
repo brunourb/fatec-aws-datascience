@@ -1,3 +1,71 @@
+# Aula 25-02-2023
+https://rentry.co/fatec-cloud/
+
+## Criação da tabela no DynamoDB
+
+
+## Inserção de dados via linha de comando
+
+## Linux
+```shell
+aws dynamodb put-item
+--table-name temperatura
+--item '{
+ "idDispositivo": {
+  "S": "9aa435ca-b535-11ed-afa1-0242ac120002"
+ },
+ "dataEvento": {
+  "S": "25-02-2023"
+ }
+}'
+```
+
+ou exemplo passando profile e região como parâmetro
+## Linux
+```shell
+aws dynamodb put-item
+--table-name temperatura
+--item '{
+ "idDispositivo": {
+  "S": "9aa435ca-b535-11ed-afa1-0242ac120002"
+ },
+ "dataEvento": {
+  "S": "25-02-2023"
+ },
+ "temperatura": {"N": "30"}
+}'
+```
+
+### Windows (precisa 'escapar' o texto)
+```shell
+aws dynamodb put-item --table-name temperatura --item '{\"idDispositivo\": {\"S\": \"9aa435ca-b535-11ed-afa1-0242ac120002\"},\"dataEvento\": {\"S\": \"25-02-2023\"},\"temperatura\": {\"N\": \"30\"}}'
+```
+
+# Instalar pip
+```shell
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+```
+
+```shell
+py -m pip install [options] <requirement specifier> [package-index-options] ...
+py -m pip install [options] -r <requirements file> [package-index-options] ...
+py -m pip install [options] [-e] <vcs project url> ...
+py -m pip install [options] [-e] <local project path> ...
+py -m pip install [options] <archive url/path> ...
+``` 
+
+## Requirements.txt
+Criar na raiz do projeto um arquivo requirements.txt
+boto3==1.26.79
+
+## Para instalar
+```shell
+pip install -r requirements.txt
+```
+
+# Criar função lambda para persistência no DynamoDB
+
+```python
 # Documentação relacionada a 'invocação' (invoke) de uma função lambda feita em python.
 # https://docs.aws.amazon.com/pt_br/lambda/latest/dg/python-handler.html
 
@@ -89,4 +157,4 @@ def processar_dados(event, context):
             'message': json.dumps('Erro ao registrar temperatura.'),
             'data': [item],
         }
-
+```
