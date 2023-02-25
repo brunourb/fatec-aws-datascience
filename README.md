@@ -1,5 +1,93 @@
 # Aula 25-02-2023
-https://rentry.co/fatec-cloud/
+
+# FATEC
+
+## Configuração ambiente AWS
+
+## Deploy de função zip
+
+### Criar nova função à partir de um zip
+
+Para publição via CLI:
+
+**Detalhe**
+```shell
+aws lambda create-function \
+--function-name $NOME_FUNCAO \
+--zip-file fileb://$ARQUIVO_ZIP.zip \
+--runtime python3.9 \
+--role $ARN_DA_ROLE_PARA_PUBLICACAO \
+--handler $NOME_FUNCAO.$METODO_DEFINIDO_NO_ARQUIVO_PYTHON
+```
+
+**Exemplo 1**
+```shell
+aws lambda create-function \
+--function-name meu-app-python \
+--zip-file fileb://meu-app-python.zip \
+--runtime python3.9 \
+--role arn:aws:iam::251822626625:role/LabRole \
+--handler meu-app-python.lambda_handler
+```
+
+**Exemplo 2**
+```shell
+aws lambda create-function \
+--function-name novaFuncao \
+--runtime python3.9 z
+--handler me-do-arquivo.lambda_handler \
+--role arn:aws:iam::302614027063:role/LabRole \
+--zip-file fileb://lambda_function.zip
+```
+#dTaBFso3
+**Exemplo 3**
+```shell
+aws lambda create-function \
+--function-name function01 \
+--zip-file fileb://lambda_function.zip \
+--runtime python3.9 \
+--role arn:aws:iam::251822626625:role/LabRole \
+--handler lambda_function.lambda_handler --profile aws_academy --region us-east-1
+```
+### Resultado
+
+```json
+{
+    "FunctionName": "function03",
+    "FunctionArn": "arn:aws:lambda:us-east-1:251822626625:function:function03",
+    "Runtime": "python3.9",
+    "Role": "arn:aws:iam::251822626625:role/LabRole",
+    "Handler": "lambda_function.lambda_handler",
+    "CodeSize": 563,
+    "Description": "",
+    "Timeout": 3,
+    "MemorySize": 128,
+    "LastModified": "2023-02-25T15:45:39.455+0000",
+    "CodeSha256": "gXgyb3wmShcyS3rm2nBZnRF0Myr0e4/KuAR3MA2on+M=",
+    "Version": "$LATEST",
+    "TracingConfig": {
+        "Mode": "PassThrough"
+    },
+    "RevisionId": "f320acf6-3673-41e9-8a26-21f52542bbb6",
+    "State": "Pending",
+    "StateReason": "The function is being created.",
+    "StateReasonCode": "Creating",
+    "PackageType": "Zip"
+}
+
+```
+
+### Atualizar função à partir de um arquivo zip.
+
+**Atualizar função**
+```shell
+aws lambda udpdate-function \
+--function-name meu-app-python \
+--zip-file fileb://meu-app-python.zip \
+--runtime python3.9 \
+--role arn:aws:iam::251822626625:role/LabRole \
+--handler index.handler
+```
 
 ## Criação da tabela no DynamoDB
 
